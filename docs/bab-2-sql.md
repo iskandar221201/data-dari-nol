@@ -62,6 +62,59 @@ Di playground, jawab dengan query:
 2. Berapa total omzet pada 2024-01-06?
 3. Divisi mana yang rata-rata gajinya paling rendah?
 
+## Studi kasus: Warung Kopi Sederhana
+
+Pertanyaan yang sama seperti [studi kasus di Bab 1](/bab-1-spreadsheet#studi-kasus-warung-kopi-sederhana), sekarang dijawab dengan SQL di [playground](/playground). Datanya sama persis.
+
+**1. Total omzet 10 hari.**
+
+```sql
+SELECT SUM(jumlah * harga) AS total_omzet
+FROM penjualan;
+```
+
+Hasil: 36818000.
+
+**2. Produk paling laris (berdasarkan jumlah terjual).**
+
+```sql
+SELECT produk, SUM(jumlah) AS total_terjual
+FROM penjualan
+GROUP BY produk
+ORDER BY total_terjual DESC;
+```
+
+Hasil: Roti Bakar (1111), Kopi Susu (919), Teh Manis (868).
+
+**3. Hari dengan omzet tertinggi.**
+
+```sql
+SELECT tgl, SUM(jumlah * harga) AS omzet
+FROM penjualan
+GROUP BY tgl
+ORDER BY omzet DESC
+LIMIT 1;
+```
+
+Hasil: 2024-01-05 (5186000).
+
+**4. Rata-rata omzet per hari.**
+
+```sql
+SELECT AVG(omzet_harian) AS rata_rata
+FROM (
+  SELECT SUM(jumlah * harga) AS omzet_harian
+  FROM penjualan
+  GROUP BY tgl
+);
+```
+
+Hasil: 3681800. Subquery di sini dipakai karena rata-rata harus dihitung dari total per hari, bukan dari tiap baris transaksi.
+
+### Bandingkan dengan cara spreadsheet
+
+Hasilnya sama persis dengan [bedah Excel di Bab 1](/bab-1-spreadsheet#bedah-latihan-cara-excelsheets). Bedanya cuma perkakas: pivot table di spreadsheet, `GROUP BY` di SQL. Konsepnya satu: kelompokkan, agregat, urutkan.
+
 ---
 
 **Selanjutnya:** [Bab 3: Statistik](/bab-3-statistik)

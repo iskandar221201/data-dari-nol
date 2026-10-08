@@ -17,6 +17,7 @@ const nav = [
     ],
   },
   { text: 'SQL Playground', link: '/playground' },
+  { text: 'Dataset', link: '/dataset' },
   { text: 'Latihan', link: '/latihan' },
   { text: 'Roadmap', link: '/roadmap' },
 ]
@@ -54,6 +55,8 @@ const sidebar = [
     collapsed: true,
     items: [
       { text: 'SQL Playground', link: '/playground' },
+      { text: 'Dataset Latihan', link: '/dataset' },
+  { text: 'Dataset', link: '/dataset' },
       { text: 'Bank Latihan', link: '/latihan' },
       { text: 'Roadmap', link: '/roadmap' },
     ],

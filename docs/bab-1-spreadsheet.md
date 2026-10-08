@@ -28,6 +28,32 @@ Misal kamu punya tabel penjualan dengan kolom Tanggal, Produk, Jumlah, Harga. Un
 2. Hitung total per kategori dengan `SUMIF`.
 3. Buat tabel pivot yang sama dan bandingkan hasilnya.
 
+## Studi kasus: Warung Kopi Sederhana
+
+Pemilik warung kopi punya data penjualan 1-10 Januari 2024 ([unduh di sini](/dataset)) dan bertanya empat hal:
+
+1. Berapa total omzet 10 hari ini?
+2. Produk apa yang paling laris?
+3. Hari apa omzetnya paling tinggi?
+4. Berapa rata-rata omzet per hari?
+
+### Bedah latihan (cara Excel/Sheets)
+
+**Persiapan.** Buka `penjualan.csv` di spreadsheet. Tambah kolom F bernama `omzet` dengan rumus di F2: `=D2*E2`, tarik ke bawah. Kolom ini bikin semua jawaban lebih gampang.
+
+**1. Total omzet.** Di sel kosong: `=SUM(F2:F30)`. Hasilnya: **Rp36.818.000**.
+
+**2. Produk paling laris.** Pakai tabel pivot: baris = `produk`, nilai = SUM dari `jumlah`. Urutkan dari besar ke kecil. Hasilnya: Roti Bakar (1.111), Kopi Susu (919), Teh Manis (868). Jadi jawabannya **Roti Bakar**. Catatan: yang dihitung `jumlah`, bukan omzet. Kalau pakai omzet, Kopi Susu menang karena harganya lebih mahal. Pertanyaannya "paling laris", jadi yang dihitung jumlah terjual.
+
+**3. Hari omzet tertinggi.** Tabel pivot lagi: baris = `tgl`, nilai = SUM dari `omzet`, urutkan menurun. Hasilnya: **2024-01-05** dengan Rp5.186.000.
+
+**4. Rata-rata omzet harian.** `=AVERAGE` dari total omzet per hari, atau sederhananya `=36818000/10` = **Rp3.681.800**. (Pembagi 10 karena datanya 10 hari, bukan karena ada 10 baris.)
+
+### Yang perlu diperhatikan
+
+- Pertanyaan 2 menunjukkan kenapa definisi penting: "laris" bisa berarti jumlah terbanyak atau omzet terbesar. Analis yang baik mengklarifikasi dulu sebelum menghitung.
+- Semua jawaban di atas bisa dicek ulang dengan query SQL di [Bab 2](/bab-2-sql#studi-kasus-warung-kopi-sederhana). Datanya sama persis.
+
 ---
 
 **Selanjutnya:** [Bab 2: SQL](/bab-2-sql)
