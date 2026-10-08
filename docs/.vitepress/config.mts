@@ -61,7 +61,7 @@ const sidebar = [
 ]
 
 export default defineConfig({
-  base: '/',
+  base: '/data-dari-nol/',
   lang: 'id-ID',
   title: 'Data dari Nol',
   description:
