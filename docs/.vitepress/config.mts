@@ -7,7 +7,18 @@ const nav = [
     text: 'Kurikulum',
     items: [
       { text: 'Bab 0: Persiapan', link: '/bab-0-persiapan' },
-      { text: 'Bab 1: Spreadsheet', link: '/bab-1-spreadsheet' },
+      {
+        text: 'Bab 1: Spreadsheet',
+        link: '/bab-1-spreadsheet',
+        collapsed: true,
+        items: [
+          { text: 'Dasar-dasar', link: '/bab-1-dasar' },
+          { text: 'Rumus dan Fungsi', link: '/bab-1-rumus' },
+          { text: 'Sortir, Filter, Pivot', link: '/bab-1-pivot' },
+          { text: 'Pembersihan Data', link: '/bab-1-bersih' },
+          { text: 'Studi Kasus', link: '/bab-1-studi-kasus' },
+        ],
+      },
       { text: 'Bab 2: SQL', link: '/bab-2-sql' },
       { text: 'Bab 3: Statistik', link: '/bab-3-statistik' },
       { text: 'Bab 4: Visualisasi', link: '/bab-4-visualisasi' },
@@ -29,7 +40,18 @@ const sidebar = [
     collapsed: false,
     items: [
       { text: 'Bab 0: Persiapan', link: '/bab-0-persiapan' },
-      { text: 'Bab 1: Spreadsheet', link: '/bab-1-spreadsheet' },
+      {
+        text: 'Bab 1: Spreadsheet',
+        link: '/bab-1-spreadsheet',
+        collapsed: true,
+        items: [
+          { text: 'Dasar-dasar', link: '/bab-1-dasar' },
+          { text: 'Rumus dan Fungsi', link: '/bab-1-rumus' },
+          { text: 'Sortir, Filter, Pivot', link: '/bab-1-pivot' },
+          { text: 'Pembersihan Data', link: '/bab-1-bersih' },
+          { text: 'Studi Kasus', link: '/bab-1-studi-kasus' },
+        ],
+      },
     ],
   },
   {
