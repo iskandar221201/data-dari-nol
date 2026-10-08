@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL Playground — Data dari Nol</title>
+<style>
+  :root {
+    --navy: #1e3a5f;
+    --amber: #d97706;
+    --bg: #fafaf7;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --text: #1e293b;
+    --text-2: #64748b;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 1.5rem;
+    max-width: 1000px;
+    margin-inline: auto;
+  }
+  h1 { font-size: 1.4rem; margin: 0 0 0.3rem; color: var(--navy); }
+  .sub { color: var(--text-2); margin: 0 0 1.2rem; font-size: 0.95rem; }
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .panel h2 { font-size: 1rem; margin: 0 0 0.8rem; color: var(--navy); }
+  textarea {
+    width: 100%;
+    min-height: 120px;
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    padding: 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    resize: vertical;
+  }
+  textarea:focus-visible, button:focus-visible {
+    outline: 2px solid var(--navy);
+    outline-offset: 2px;
+  }
+  .row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.8rem; align-items: center; }
+  button {
+    font-size: 0.95rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
+    min-height: 44px;
+  }
+  button.primary {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #fff;
+    font-weight: 600;
+  }
+  button.sample {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    padding: 0.45rem 0.8rem;
+    min-height: 44px;
+  }
+  .status { font-size: 0.9rem; color: var(--text-2); margin-top: 0.6rem; min-height: 1.4em; }
+  .status.loading { color: var(--amber); }
+  .status.error { color: #b91c1c; }
+  .status.ok { color: #15803d; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.7rem;
+    text-align: left;
+  }
+  th { background: #f1f5f9; color: var(--navy); font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); }
+  .schema { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .schema table { width: auto; min-width: 280px; }
+  .empty-note { color: var(--text-2); font-size: 0.9rem; }
+  kbd {
+    font-family: var(--mono);
+    background: #f1f5f9;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    font-size: 0.85em;
+  }
+</style>
+</head>
+<body>
+
+<h1>SQL Playground</h1>
+<p class="sub">Database contoh berjalan sepenuhnya di browser. Tulis query, tekan <kbd>Ctrl</kbd>+<kbd>Enter</kbd> atau tombol Jalankan.</p>
+
+<div class="panel" id="status-panel">
+  <div class="status loading" id="status" role="status">Memuat database...</div>
+</div>
+
+<div class="panel">
+  <h2>Skema data</h2>
+  <div class="schema">
+    <table aria-label="Skema tabel karyawan">
+      <tr><th colspan="2">karyawan</th></tr>
+      <tr><td>id</td><td class="num">INTEGER</td></tr>
+      <tr><td>nama</td><td>TEXT</td></tr>
+      <tr><td>divisi</td><td>TEXT</td></tr>
+      <tr><td>gaji</td><td class="num">INTEGER</td></tr>
+      <tr><td>tgl_masuk</td><td>TEXT</td></tr>
+    </table>
+    <table aria-label="Skema tabel penjualan">
+      <tr><th colspan="2">penjualan</th></tr>
+      <tr><td>id</td><td class="num">INTEGER</td></tr>
+      <tr><td>tgl</td><td>TEXT</td></tr>
+      <tr><td>produk</td><td>TEXT</td></tr>
+      <tr><td>jumlah</td><td class="num">INTEGER</td></tr>
+      <tr><td>harga</td><td class="num">INTEGER</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Tulis query</h2>
+  <label for="q" class="empty-note">Query SQL (SELECT saja untuk latihan ini)</label>
+  <textarea id="q" spellcheck="false">SELECT * FROM karyawan;</textarea>
+  <div class="row">
+    <button class="primary" id="run" disabled>Jalankan query</button>
+    <button class="sample" data-q="SELECT * FROM karyawan;">semua karyawan</button>
+    <button class="sample" data-q="SELECT divisi, AVG(gaji) AS rata_gaji FROM karyawan GROUP BY divisi;">rata-rata gaji per divisi</button>
+    <button class="sample" data-q="SELECT produk, SUM(jumlah * harga) AS omzet FROM penjualan GROUP BY produk ORDER BY omzet DESC;">omzet per produk</button>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Hasil</h2>
+  <div id="result"><p class="empty-note">Belum ada query yang dijalankan.</p></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+<script>
+(function () {
+  var statusEl = document.getElementById('status');
+  var runBtn = document.getElementById('run');
+  var qEl = document.getElementById('q');
+  var resultEl = document.getElementById('result');
+  var db = null;
+
+  function setStatus(text, cls) {
+    statusEl.textContent = text;
+    statusEl.className = 'status ' + cls;
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function render(res) {
+    if (!res.length || !res[0].values.length) {
+      resultEl.innerHTML = '<p class="empty-note">Query berhasil, tapi tidak ada baris yang cocok.</p>';
+      return;
+    }
+    var html = '<table><tr>';
+    res[0].columns.forEach(function (c) { html += '<th>' + esc(c) + '</th>'; });
+    html += '</tr>';
+    res[0].values.forEach(function (row) {
+      html += '<tr>';
+      row.forEach(function (v) {
+        var num = typeof v === 'number' ? ' class="num"' : '';
+        html += '<td' + num + '>' + esc(v === null ? 'NULL' : v) + '</td>';
+      });
+      html += '</tr>';
+    });
+    html += '</table><p class="empty-note">' + res[0].values.length + ' baris.</p>';
+    resultEl.innerHTML = html;
+  }
+
+  function jalankan() {
+    if (!db) return;
+    var q = qEl.value.trim();
+    if (!q) {
+      setStatus('Tulis dulu query-nya.', 'error');
+      return;
+    }
+    try {
+      var res = db.exec(q);
+      render(res);
+      setStatus('Query berhasil dijalankan.', 'ok');
+    } catch (e) {
+      resultEl.innerHTML = '<p class="empty-note">Tidak ada hasil karena query gagal.</p>';
+      setStatus('Error: ' + e.message, 'error');
+    }
+  }
+
+  runBtn.addEventListener('click', jalankan);
+  qEl.addEventListener('keydown', function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') jalankan();
+  });
+  document.querySelectorAll('button.sample').forEach(function (b) {
+    b.addEventListener('click', function () {
+      qEl.value = b.getAttribute('data-q');
+      qEl.focus();
+    });
+  });
+
+  initSqlJs({ locateFile: function (f) {
+    return 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/' + f;
+  }}).then(function (SQL) {
+    db = new SQL.Database();
+    db.run("CREATE TABLE karyawan (id INTEGER, nama TEXT, divisi TEXT, gaji INTEGER, tgl_masuk TEXT);");
+    db.run("INSERT INTO karyawan VALUES \
+      (1, 'Budi Santoso', 'Marketing', 6500000, '2022-03-15'), \
+      (2, 'Siti Rahayu', 'Marketing', 7000000, '2021-07-01'), \
+      (3, 'Andi Wijaya', 'IT', 9000000, '2020-01-10'), \
+      (4, 'Dewi Lestari', 'IT', 9500000, '2019-11-20'), \
+      (5, 'Rina Marlina', 'Finance', 8000000, '2021-05-05'), \
+      (6, 'Joko Prasetyo', 'Finance', 7800000, '2022-08-12'), \
+      (7, 'Maya Putri', 'HR', 6000000, '2023-02-01'), \
+      (8, 'Fajar Nugroho', 'IT', 8800000, '2021-09-30');");
+    db.run("CREATE TABLE penjualan (id INTEGER, tgl TEXT, produk TEXT, jumlah INTEGER, harga INTEGER);");
+    db.run("INSERT INTO penjualan VALUES \
+      (1, '2024-01-05', 'Kopi Susu', 120, 18000), \
+      (2, '2024-01-05', 'Roti Bakar', 80, 12000), \
+      (3, '2024-01-06', 'Kopi Susu', 150, 18000), \
+      (4, '2024-01-06', 'Teh Manis', 60, 8000), \
+      (5, '2024-01-07', 'Kopi Susu', 135, 18000), \
+      (6, '2024-01-07', 'Roti Bakar', 95, 12000), \
+      (7, '2024-01-08', 'Teh Manis', 70, 8000), \
+      (8, '2024-01-08', 'Kopi Susu', 160, 18000);");
+    setStatus('Database siap. Silakan tulis query.', 'ok');
+    runBtn.disabled = false;
+  }).catch(function () {
+    setStatus('Gagal memuat database. Periksa koneksi internet lalu muat ulang halaman.', 'error');
+  });
+})();
+</script>
+</body>
+</html>
