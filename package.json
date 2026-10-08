@@ -1,0 +1,1 @@
+{"description":"Kurikulum analis data berbahasa Indonesia, dari nol sampai portfolio","devDependencies":{"vitepress":"^1.6.3"},"name":"data-dari-nol","scripts":{"docs:build":"vitepress build docs","docs:dev":"vitepress dev docs","docs:preview":"vitepress preview docs"},"type":"module","version":"0.1.0"}
