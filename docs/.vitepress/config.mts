@@ -69,11 +69,11 @@ export default defineConfig({
   head: [
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'Data dari Nol' }],
-    ['meta', { property: 'og:title', content: 'Data dari Nol — Kurikulum Analis Data Berbahasa Indonesia' }],
+    ['meta', { property: 'og:title', content: 'Data dari Nol: Kurikulum Analis Data Berbahasa Indonesia' }],
     ['meta', { property: 'og:description', content: 'Belajar jadi analis data dari nol: spreadsheet, SQL, statistik, visualisasi, sampai portfolio. Gratis, praktik langsung di browser.' }],
     ['meta', { property: 'og:locale', content: 'id_ID' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { name: 'twitter:title', content: 'Data dari Nol — Kurikulum Analis Data Berbahasa Indonesia' }],
+    ['meta', { name: 'twitter:title', content: 'Data dari Nol: Kurikulum Analis Data Berbahasa Indonesia' }],
     ['meta', { name: 'twitter:description', content: 'Belajar jadi analis data dari nol: spreadsheet, SQL, statistik, visualisasi, sampai portfolio. Gratis, praktik langsung di browser.' }],
   ],
   themeConfig: {
