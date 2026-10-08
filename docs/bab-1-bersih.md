@@ -10,7 +10,7 @@ Pepatah analis: sampah masuk, sampah keluar. Data hampir tidak pernah datang dal
 | Kapitalisasi tidak konsisten | `"kopi susu"`, `"KOPI SUSU"` | Sama seperti di atas |
 | Duplikat | Baris yang sama tercatat dua kali | Total mengganda |
 | Format tanggal campur | `01/05/2024` vs `05-01-2024` | Urutan dan filter rusak |
-| Sel kosong | — | Rumus error, pivot mengabaikan |
+| Sel kosong | (kosong) | Rumus error, pivot mengabaikan |
 | Teks di kolom angka | `"18000 "` atau `"Rp18.000"` | Tidak bisa dihitung |
 
 ## 2. Senjata pembersih
