@@ -14,18 +14,26 @@ Lihat latihan di [Bab 0](/bab-0-persiapan#4-latihan-bab-0).
 - [1.2 WHERE](/sql-where#latihan)
 - [1.3 ORDER BY dan LIMIT](/sql-order#latihan)
 - [1.4 Urutan Eksekusi Query](/sql-urutan#latihan)
-- [1.5 Agregasi dan GROUP BY](/sql-agregasi#latihan)
-- [1.6 JOIN](/sql-join#latihan)
-- [1.7 Subquery dan CTE](/sql-subquery#latihan)
-- [1.8 Window Function](/sql-window#latihan)
-- [1.9 Studi Kasus](/sql-studi-kasus)
+- [1.5 Fungsi Agregasi](/sql-agregasi#latihan)
+- [1.6 GROUP BY dan HAVING](/sql-groupby#latihan)
+- [1.7 INNER JOIN](/sql-join-inner#latihan)
+- [1.8 LEFT JOIN](/sql-join-left#latihan)
+- [1.9 RIGHT JOIN dan FULL JOIN](/sql-join-right-full#latihan)
+- [1.10 SELF JOIN](/sql-join-self#latihan)
+- [1.11 CROSS JOIN](/sql-join-cross#latihan)
+- [1.12 Subquery](/sql-subquery#latihan)
+- [1.13 CTE](/sql-cte#latihan)
+- [1.14 Window Function Dasar](/sql-window#latihan)
+- [1.15 LAG, LEAD, Agregat Window](/sql-window-lag#latihan)
+- [1.16 Studi Kasus](/sql-studi-kasus)
 
 ## Bab 2: SQL Lanjutan
 
 - [2.1 CASE](/sql-lanjut-case#latihan)
-- [2.2 UNION](/sql-lanjut-union#latihan)
-- [2.3 Fungsi String dan Tanggal](/sql-lanjut-string#latihan)
-- [2.4 Data Cleaning](/sql-lanjut-cleaning#latihan)
+- [2.2 UNION dan Operasi Himpunan](/sql-lanjut-union#latihan)
+- [2.3 Fungsi String](/sql-lanjut-string#latihan)
+- [2.4 Fungsi Tanggal](/sql-tanggal#latihan)
+- [2.5 Data Cleaning](/sql-lanjut-cleaning#latihan)
 
 ## Bab 3: Studi Kasus Real
 

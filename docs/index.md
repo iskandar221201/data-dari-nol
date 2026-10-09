@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "Data dari Nol"
   text: "Kurikulum analis data berbahasa Indonesia"
-  tagline: "Belajar jadi analis data dari nol: SQL dasar, SQL lanjutan, studi kasus real, Python, statistik, visualisasi, sampai portfolio. Semua materi bisa dibaca gratis, dan tiap halaman SQL punya playground interaktif dengan dataset studi kasusnya sendiri."
+  tagline: "Belajar jadi analis data dari nol: SQL dasar (16 halaman), SQL lanjutan, studi kasus real, Python, statistik, visualisasi, sampai portfolio. Semua materi bisa dibaca gratis, dan tiap halaman SQL punya playground interaktif dengan dataset studi kasusnya sendiri."
   actions:
     - theme: brand
       text: Mulai dari Bab 0
@@ -21,7 +21,7 @@ features:
   - title: Belajar dari dokumen asli
     details: Studi kasus dimulai dari email permintaan stakeholder, bukan soal yang sudah rapi. Ada pre-test sebelum bedahannya, post-test sesudahnya.
   - title: Urutan yang masuk akal
-    details: Cara berpikir analis, SQL dasar (9 halaman), SQL lanjutan, studi kasus real, lalu Python, statistik, visualisasi, storytelling, portfolio.
+    details: Cara berpikir analis, SQL dasar (16 halaman, tiap jenis JOIN punya halaman sendiri), SQL lanjutan, studi kasus real, lalu Python, statistik, visualisasi, storytelling, portfolio.
   - title: Bahasa Indonesia
     details: Istilah teknis tetap dipakai dalam bahasa Inggris, tapi penjelasannya memakai bahasa Indonesia sehari-hari.
   - title: Jujur soal cakupan

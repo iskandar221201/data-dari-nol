@@ -85,6 +85,18 @@ Transaksi yang sengaja dikotori (duplikat, format campur, NULL). Dipakai di [2.4
 - **Kasus: Menu Paling Cuan** — dipakai di [3.3](/studi-kasus-3-margin): <a :href="withBase('/datasets/kasus-margin.csv')" download>kasus-margin.csv</a> (24 baris)
 - **Kasus: Kurir Telat** — dipakai di [3.4](/studi-kasus-4-kurir): <a :href="withBase('/datasets/kasus-logistik.csv')" download>kasus-logistik.csv</a> (24 baris)
 
+## Dataset Halaman Pecahan
+
+- **Kantin Kampus** — dipakai di [1.6 GROUP BY](/sql-groupby): <a :href="withBase('/datasets/kantin.csv')" download>kantin.csv</a> (18 baris)
+- **Join: Siswa & Kelas** — dipakai di [1.7 INNER JOIN](/sql-join-inner): <a :href="withBase('/datasets/join-siswa-siswa.csv')" download>siswa.csv</a> · <a :href="withBase('/datasets/join-siswa-kelas.csv')" download>kelas.csv</a>
+- **Join: Karyawan & Dept** — dipakai di [1.8 LEFT JOIN](/sql-join-left): <a :href="withBase('/datasets/join-karyawan-karyawan.csv')" download>karyawan.csv</a> · <a :href="withBase('/datasets/join-karyawan-departemen.csv')" download>departemen.csv</a>
+- **Join: Produk & Supplier** — dipakai di [1.9 RIGHT & FULL JOIN](/sql-join-right-full): <a :href="withBase('/datasets/join-produk-produk.csv')" download>produk.csv</a> · <a :href="withBase('/datasets/join-produk-supplier.csv')" download>supplier.csv</a>
+- **Join: Struktur Organisasi** — dipakai di [1.10 SELF JOIN](/sql-join-self): <a :href="withBase('/datasets/join-struktur.csv')" download>join-struktur.csv</a>
+- **Join: Warna x Ukuran** — dipakai di [1.11 CROSS JOIN](/sql-join-cross): <a :href="withBase('/datasets/join-kaos-warna.csv')" download>warna.csv</a> · <a :href="withBase('/datasets/join-kaos-ukuran.csv')" download>ukuran.csv</a>
+- **CTE: Omzet Sales** — dipakai di [1.13 CTE](/sql-cte): <a :href="withBase('/datasets/cte-sales.csv')" download>cte-sales.csv</a> (9 baris)
+- **Window: Lomba** — dipakai di [1.14 Window Dasar](/sql-window): <a :href="withBase('/datasets/window-lomba.csv')" download>window-lomba.csv</a> (12 baris)
+- **Tanggal: Jadwal Acara** — dipakai di [2.4 Fungsi Tanggal](/sql-tanggal): <a :href="withBase('/datasets/tanggal-acara.csv')" download>tanggal-acara.csv</a> (12 baris)
+
 ::: tip Data mentah jangan diubah
 Kalau mau otak-atik, duplikat dulu file-nya atau kerjakan di salinan terpisah. Kebiasaan ini menyelamatkanmu dari banyak masalah di dunia kerja.
 :::

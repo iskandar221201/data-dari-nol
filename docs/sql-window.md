@@ -2,121 +2,88 @@
 import { withBase } from 'vitepress'
 </script>
 
-# 1.8 Window Function: Skill Level Analis
+# 1.14 Window Function Dasar: Peringkat Tanpa Mencairkan Tabel
 
-Di semua tutorial SQL serius, ada satu topik yang selalu ditaruh paling akhir dan dilabeli "level analis": **window function**. Alasannya sederhana: ini cara menjawab pertanyaan yang membandingkan baris dengan baris lain, tanpa menciutkan tabel.
-
-Contoh: "berapa pertumbuhan omzet bulan ini dibanding bulan lalu?" Pakai `GROUP BY`, tabelnya menciut jadi satu baris per bulan dan kamu kehilangan detail per kanal. Pakai window function, semua baris tetap ada, cuma nambah kolom hasil hitungan.
+Di semua tutorial SQL serius, window function selalu ditaruh di ujung dan dilabeli "level analis". Alasannya: ini cara memberi peringkat atau nomor urut **tanpa menciutkan tabel** seperti `GROUP BY`.
 
 ```sql
-SELECT bulan, kanal, omzet,
-  omzet - LAG(omzet) OVER (PARTITION BY kanal ORDER BY bulan) AS selisih
-FROM penjualan_bulanan;
+SELECT nama, cabang, skor,
+  RANK() OVER (PARTITION BY cabang ORDER BY skor DESC) AS peringkat
+FROM peserta;
 ```
 
-`LAG(omzet)` artinya "nilai omzet di baris sebelumnya". `OVER (...)` menjelaskan "sebelumnya" itu dalam urutan apa, di kelompok mana.
+`OVER (...)` menjelaskan jendelanya: `PARTITION BY cabang` = peringkat dihitung per cabang (mirip `GROUP BY`, tapi baris tidak menciut), `ORDER BY skor DESC` = urutan peringkatnya.
 
-## Anatomi OVER
+## Tiga fungsi peringkat: bedanya di skor seri
+
+Dataset lomba ini sengaja punya skor seri (dua 90 di Lari, dua 92 di Renang, dua 95 di Catur). Perhatikan bedanya:
 
 ```sql
-FUNGSI(...) OVER (
-  PARTITION BY kolom   -- kelompokkan (mirip GROUP BY, tapi baris tidak menciut)
-  ORDER BY kolom       -- urutan di dalam tiap kelompok
-)
+SELECT nama, cabang, skor,
+  ROW_NUMBER() OVER (PARTITION BY cabang ORDER BY skor DESC) AS rn,
+  RANK() OVER (PARTITION BY cabang ORDER BY skor DESC) AS rnk,
+  DENSE_RANK() OVER (PARTITION BY cabang ORDER BY skor DESC) AS dense
+FROM peserta;
 ```
 
-Tanpa `PARTITION BY`, seluruh tabel dianggap satu kelompok. Tanpa `ORDER BY`, "baris sebelumnya" jadi tidak jelas artinya.
-
-## Fungsi yang paling dipakai
-
-| Fungsi | Arti | Contoh pakai |
+| Fungsi | Skor seri | Setelah seri |
 |---|---|---|
-| `ROW_NUMBER()` | nomor urut 1, 2, 3... | ambil 3 teratas per grup |
-| `RANK()` | peringkat (seri dapat peringkat sama, lalu lompat) | peringkat kanal per bulan |
-| `LAG(x)` / `LEAD(x)` | nilai baris sebelum / sesudahnya | pertumbuhan month-over-month |
-| `SUM(x) OVER (...)` | total berjalan | omzet kumulatif |
+| `ROW_NUMBER()` | dipaksa beda (1, 2) | lanjut 3 |
+| `RANK()` | peringkat sama (1, 1) | lompat (3) |
+| `DENSE_RANK()` | peringkat sama (1, 1) | lanjut (2) |
+
+Pilih sesuai kebutuhan: `ROW_NUMBER` buat "ambil tepat 3 teratas", `RANK` buat peringkat lomba beneran, `DENSE_RANK` kalau tidak boleh ada lompatan.
+
+## Tanpa PARTITION BY: satu kelompok besar
 
 ```sql
--- peringkat kanal per bulan
-SELECT bulan, kanal, omzet,
-  RANK() OVER (PARTITION BY bulan ORDER BY omzet DESC) AS peringkat
-FROM penjualan_bulanan;
+SELECT nama, skor,
+  RANK() OVER (ORDER BY skor DESC) AS peringkat_nasional
+FROM peserta;
 ```
 
-```sql
--- 3 bulan dengan omzet online tertinggi
-SELECT bulan, omzet
-FROM (
-  SELECT bulan, omzet,
-    ROW_NUMBER() OVER (ORDER BY omzet DESC) AS rn
-  FROM penjualan_bulanan
-  WHERE kanal = 'online'
-)
-WHERE rn <= 3;
-```
-
-Perhatikan contoh terakhir: window function dikombinasikan dengan subquery, karena hasil window function tidak bisa langsung disaring pakai `WHERE` (ingat urutan eksekusi: `WHERE` jalan sebelum `SELECT`).
-
-## Beda agregasi biasa vs window
-
-```sql
--- agregasi biasa: 12 baris -> 1 angka
-SELECT AVG(omzet) FROM penjualan_bulanan WHERE kanal = 'online';
-
--- window: 24 baris tetap 24 baris, nambah kolom
-SELECT bulan, kanal, omzet,
-  AVG(omzet) OVER (PARTITION BY kanal) AS rata_kanal
-FROM penjualan_bulanan;
-```
-
-Kolom `rata_kanal` di contoh kedua berguna buat perbandingan: "bulan apa saja omzetnya di atas rata-rata kanalnya?" Itu pertanyaan analis banget, dan susah dijawab tanpa window function.
+Tanpa `PARTITION BY`, seluruh tabel dianggap satu kelompok. Berguna buat peringkat global.
 
 ## Jebakan umum
 
-- **Lupa `ORDER BY` di dalam `OVER`.** `LAG` tanpa urutan itu meaningless, database-nya pun bingung.
-- **`WHERE` buat saring hasil window function.** Tidak bisa, pakai subquery/CTE seperti contoh di atas.
-- **Window function di `GROUP BY` query.** Bisa digabung, tapi pahami dulu masing-masing secara terpisah.
+- **Lupa `ORDER BY` di dalam `OVER`.** Peringkat tanpa urutan itu tidak ada artinya.
+- **Hasil window function tidak bisa disaring pakai `WHERE`.** `WHERE` jalan sebelum `SELECT`. Mau saring peringkat? Bungkus pakai subquery/CTE (ada contohnya di halaman berikutnya).
+- **Window function bukan agregasi biasa.** `RANK()` tidak menciutkan baris; 12 baris masuk, 12 baris keluar, nambah 1 kolom.
 
 ## Coba di playground
 
-Dataset: **Tren Penjualan** (omzet bulanan 2024 per kanal, dalam juta rupiah).
+Dataset: **Lomba** (12 peserta, 3 cabang, ada skor seri).
 
-<iframe :src="withBase('/sql-playground.html?ds=tren-penjualan')" class="playground-frame" title="SQL Playground: Tren Penjualan"></iframe>
+<iframe :src="withBase('/sql-playground.html?ds=window-lomba')" class="playground-frame" title="SQL Playground: Window Lomba"></iframe>
 
 ## Latihan
 
-1. Tampilkan bulan, kanal, omzet, dan selisih omzet dibanding bulan sebelumnya per kanal.
-2. Bulan apa omzet online-nya paling tinggi? (Pakai `ROW_NUMBER`, ambil peringkat 1.)
-3. Tampilkan bulan, kanal, omzet, dan rata-rata omzet kanalnya masing-masing (pakai window `AVG`).
-4. Di bulan apa saja kanal online mengalahkan offline? (Petunjuk: `RANK` per bulan, lalu saring peringkat 1 yang kanalnya online. Butuh subquery.)
+1. Tampilkan nama, cabang, skor, dan peringkat per cabang (pakai `RANK`).
+2. Siapa juara 1 tiap cabang? (Saring peringkat = 1, butuh subquery.)
+3. Tampilkan 2 skor tertinggi tiap cabang pakai `ROW_NUMBER`.
+4. Bandingkan hasil `RANK` vs `DENSE_RANK` di cabang Catur, jelaskan bedanya.
 
 <details>
 <summary>Kunci jawaban</summary>
 
 ```sql
 -- 1
-SELECT bulan, kanal, omzet,
-  omzet - LAG(omzet) OVER (PARTITION BY kanal ORDER BY bulan) AS selisih
-FROM penjualan_bulanan;
+SELECT nama, cabang, skor,
+  RANK() OVER (PARTITION BY cabang ORDER BY skor DESC) AS peringkat FROM peserta;
 -- 2
-SELECT bulan, omzet FROM (
-  SELECT bulan, omzet, ROW_NUMBER() OVER (ORDER BY omzet DESC) AS rn
-  FROM penjualan_bulanan WHERE kanal = 'online'
-) WHERE rn = 1;
+SELECT nama, cabang FROM (
+  SELECT nama, cabang, RANK() OVER (PARTITION BY cabang ORDER BY skor DESC) AS p FROM peserta
+) WHERE p = 1;
 -- 3
-SELECT bulan, kanal, omzet,
-  AVG(omzet) OVER (PARTITION BY kanal) AS rata_kanal
-FROM penjualan_bulanan;
--- 4
-SELECT bulan FROM (
-  SELECT bulan, kanal,
-    RANK() OVER (PARTITION BY bulan ORDER BY omzet DESC) AS peringkat
-  FROM penjualan_bulanan
-) WHERE peringkat = 1 AND kanal = 'online';
+SELECT nama, cabang, skor FROM (
+  SELECT nama, cabang, skor,
+    ROW_NUMBER() OVER (PARTITION BY cabang ORDER BY skor DESC) AS rn FROM peserta
+) WHERE rn <= 2;
+-- 4. RANK: 1,1,3,4 (lompat setelah seri). DENSE_RANK: 1,1,2,3 (rapat).
 ```
 
 </details>
 
 ---
 
-**Selanjutnya:** [1.9 Studi Kasus: Toko Online](/sql-studi-kasus)
+**Selanjutnya:** [1.15 LAG, LEAD, dan Agregat Window](/sql-window-lag)

@@ -2,7 +2,7 @@
 import { withBase } from 'vitepress'
 </script>
 
-# 2.4 Data Cleaning dengan SQL
+# 2.5 Data Cleaning dengan SQL
 
 Di Bab 0 kamu sudah dengar: data hampir tidak pernah bersih. Kabar baiknya, 80% pekerjaan bersih-bersih bisa dikerjakan langsung di SQL, sebelum data masuk ke analisis. Dataset di halaman ini sengaja dikotori biar kamu bisa latihan.
 

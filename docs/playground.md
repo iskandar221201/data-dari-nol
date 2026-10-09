@@ -10,7 +10,7 @@ import { withBase } from 'vitepress'
 
 ## Cara pakai
 
-1. Pilih dataset dari menu dropdown (ada 15: 7 buat Bab 1, 4 buat Bab 2, 4 buat studi kasus Bab 3).
+1. Pilih dataset dari menu dropdown (ada 24: 16 buat Bab 1, 5 buat Bab 2, 4 buat studi kasus Bab 3).
 2. Tulis query di kolom teks, atau tekan salah satu contoh cepat.
 3. Tekan tombol **Jalankan query** atau `Ctrl`+`Enter`.
 4. Hasilnya muncul sebagai tabel di bawah.

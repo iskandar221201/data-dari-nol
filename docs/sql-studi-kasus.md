@@ -2,7 +2,7 @@
 import { withBase } from 'vitepress'
 </script>
 
-# 1.9 Studi Kasus: Toko Online
+# 1.16 Studi Kasus: Toko Online
 
 Saatnya merangkai semuanya. Kamu adalah analis di sebuah toko online kecil. Owner-nya datang dengan 5 pertanyaan bisnis. Datanya ada di playground bawah (3 tabel: `pelanggan`, `produk`, `pesanan`). Jawab semuanya dengan query.
 
@@ -121,14 +121,10 @@ Dataset: **Toko Online**. Kerjakan 5 pertanyaan di atas di sini.
 
 Kalau 5 soal di atas bisa kamu jawab tanpa mencontek, selamat: kamu sudah menguasai SQL level analis pemula. Rangkumannya:
 
-- **1.1** `SELECT`, `LIMIT`, `DISTINCT`, alias
-- **1.2** `WHERE`, `AND`/`OR`, `LIKE`, `IN`, `BETWEEN`, `NULL`
-- **1.3** `ORDER BY`, `LIMIT` + `OFFSET`
-- **1.4** Urutan eksekusi: FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
-- **1.5** Agregasi, `GROUP BY`, `HAVING`
-- **1.6** `JOIN`, `LEFT JOIN`, `ON` vs `WHERE`
-- **1.7** Subquery dan CTE
-- **1.8** Window function
+- **1.12** Subquery di `WHERE`
+- **1.13** CTE (`WITH`)
+- **1.14** Window function dasar (peringkat)
+- **1.15** `LAG`/`LEAD` dan agregat window
 
 Selanjutnya di buku ini: Python buat analisis yang tidak muat di SQL.
 

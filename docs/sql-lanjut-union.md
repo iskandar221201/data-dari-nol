@@ -2,7 +2,7 @@
 import { withBase } from 'vitepress'
 </script>
 
-# 2.2 UNION: Menggabungkan Hasil Query
+# 2.2 UNION dan Operasi Himpunan
 
 `JOIN` menggabungkan tabel ke **samping** (nambah kolom). `UNION` menggabungkan hasil query ke **bawah** (nambah baris). Dipakai saat datanya terpecah di banyak tabel dengan struktur sama, misalnya penjualan per cabang.
 
@@ -61,6 +61,26 @@ SELECT 'Surabaya', SUM(jumlah * harga)
 FROM penjualan_sby;
 ```
 
+## INTERSECT dan EXCEPT: irisan dan selisih
+
+`UNION` menggabungkan. Dua saudaranya:
+
+```sql
+-- produk yang laku di KEDUA cabang (irisan)
+SELECT produk FROM penjualan_jkt
+INTERSECT
+SELECT produk FROM penjualan_sby;
+```
+
+```sql
+-- produk yang laku di Jakarta tapi TIDAK di Surabaya (selisih)
+SELECT produk FROM penjualan_jkt
+EXCEPT
+SELECT produk FROM penjualan_sby;
+```
+
+`INTERSECT` = yang ada di kedua hasil. `EXCEPT` = yang ada di hasil pertama tapi tidak di kedua. Ketiganya (UNION, INTERSECT, EXCEPT) disebut operasi himpunan, syaratnya sama: jumlah kolom dan tipe harus cocok.
+
 ## Jebakan umum
 
 - **Jumlah kolom beda.** Error. Kalau satu tabel kolomnya lebih banyak, isi kekurangannya dengan `NULL` atau nilai default.
@@ -105,4 +125,4 @@ SELECT produk, SUM(jumlah) AS terjual FROM (
 
 ---
 
-**Selanjutnya:** [2.3 Fungsi String dan Tanggal](/sql-lanjut-string)
+**Selanjutnya:** [2.3 Fungsi String](/sql-lanjut-string)

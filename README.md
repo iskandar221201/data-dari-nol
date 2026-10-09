@@ -5,8 +5,8 @@ Kurikulum analis data berbahasa Indonesia, dari nol sampai siap portfolio. Dokum
 ## Isi
 
 - **Bab 0**: Persiapan dan cara berpikir analis
-- **Bab 1**: SQL dasar (9 halaman, tiap halaman ada playground interaktif dengan dataset studi kasusnya sendiri)
-- **Bab 2**: SQL lanjutan (CASE, UNION, fungsi string & tanggal, data cleaning)
+- **Bab 1**: SQL dasar (16 halaman, tiap halaman ada playground interaktif dengan dataset studi kasusnya sendiri)
+- **Bab 2**: SQL lanjutan (CASE, UNION dan operasi himpunan, fungsi string, fungsi tanggal, data cleaning)
 - **Bab 3**: 4 studi kasus real (dokumen stakeholder + pre-test + bedah tuntas + post-test)
 - **Bab 4**: Python untuk analisis (pandas)
 - **Bab 5**: Statistik dasar
