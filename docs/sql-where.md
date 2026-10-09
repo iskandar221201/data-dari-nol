@@ -77,7 +77,7 @@ SELECT * FROM penjualan WHERE produk IS NULL;
 SELECT * FROM penjualan WHERE produk IS NOT NULL;
 ```
 
-Jangan pakai `= NULL`, itu tidak akan pernah benar. Di dataset warung kopi ini tidak ada NULL, jadi query di atas hasilnya kosong. Kamu bakal ketemu NULL beneran di halaman [JOIN](/sql-join), tepat saat pertama kali dibutuhkan.
+Jangan pakai `= NULL`, itu tidak akan pernah benar. Di dataset warung kopi ini tidak ada NULL, jadi query di atas hasilnya kosong. Kamu bakal ketemu NULL beneran di halaman [LEFT JOIN](/sql-join-left), tepat saat pertama kali dibutuhkan.
 
 ## Jebakan umum
 

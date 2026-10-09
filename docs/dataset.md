@@ -34,7 +34,7 @@ Pesanan fiktif layanan antar makanan, 1-10 Februari 2024. Dipakai di [1.5 Agrega
 
 ## Toko Online
 
-Mini database toko online fiktif: pelanggan, produk, dan pesanan. Dipakai di [1.6 JOIN](/sql-join) dan [1.9 Studi Kasus](/sql-studi-kasus).
+Mini database toko online fiktif: pelanggan, produk, dan pesanan. Dipakai di [1.16 Studi Kasus](/sql-studi-kasus).
 
 <a :href="withBase('/datasets/toko-online-pelanggan.csv')" download>pelanggan.csv</a> (8 baris) ·
 <a :href="withBase('/datasets/toko-online-produk.csv')" download>produk.csv</a> (8 baris) ·
