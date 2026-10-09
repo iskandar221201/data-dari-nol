@@ -9,12 +9,14 @@ Untuk kamu yang mau masuk ke dunia data tapi bingung mulai dari mana: fresh grad
 ## Yang dibahas
 
 1. **Bab 0**: cara berpikir analis dan perkakas yang dipakai
-2. **Bab 1**: SQL, 9 halaman. Tiap halaman punya playground interaktif dengan dataset studi kasusnya sendiri
-3. **Bab 2**: Python untuk analisis (pandas)
-4. **Bab 3**: statistik dasar yang benar-benar dipakai
-5. **Bab 4**: visualisasi data dan dashboard
-6. **Bab 5**: storytelling, menyampaikan temuan ke orang lain
-7. **Bab 6**: studi kasus end to end dan portfolio
+2. **Bab 1**: SQL dasar, 9 halaman. Tiap halaman punya playground interaktif dengan dataset studi kasusnya sendiri
+3. **Bab 2**: SQL lanjutan (CASE, UNION, fungsi string & tanggal, data cleaning)
+4. **Bab 3**: 4 studi kasus real. Tiap kasus dimulai dari dokumen permintaan stakeholder, ada pre-test, bedah tuntas, dan post-test
+5. **Bab 4**: Python untuk analisis (pandas)
+6. **Bab 5**: statistik dasar yang benar-benar dipakai
+7. **Bab 6**: visualisasi data dan dashboard
+8. **Bab 7**: storytelling, menyampaikan temuan ke orang lain
+9. **Bab 8**: studi kasus end to end dan portfolio
 
 ## Prinsip penulisan
 

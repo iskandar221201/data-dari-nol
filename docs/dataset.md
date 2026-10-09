@@ -53,6 +53,38 @@ Omzet bulanan fiktif (juta rupiah) per kanal selama 2024. Dipakai di [1.8 Window
 
 <a :href="withBase('/datasets/tren-penjualan.csv')" download>Unduh tren-penjualan.csv</a> (24 baris: bulan, kanal, omzet)
 
+## Survei Kepuasan
+
+Hasil survei kepuasan fiktif, 18 responden. Dipakai di [2.1 CASE](/sql-lanjut-case).
+
+<a :href="withBase('/datasets/survei-kepuasan.csv')" download>Unduh survei-kepuasan.csv</a> (18 baris: id, nama, skor, komentar)
+
+## Penjualan Dua Cabang
+
+Penjualan fiktif dua cabang dengan struktur identik. Dipakai di [2.2 UNION](/sql-lanjut-union).
+
+<a :href="withBase('/datasets/penjualan-cabang-jkt.csv')" download>Jakarta</a> ·
+<a :href="withBase('/datasets/penjualan-cabang-sby.csv')" download>Surabaya</a> (12 baris per cabang)
+
+## Data Kontak
+
+Daftar kontak fiktif dengan penulisan berantakan. Dipakai di [2.3 Fungsi String dan Tanggal](/sql-lanjut-string).
+
+<a :href="withBase('/datasets/data-kontak.csv')" download>Unduh data-kontak.csv</a> (12 baris: id, nama, email, tgl_lahir, kota)
+
+## Data Kotor
+
+Transaksi yang sengaja dikotori (duplikat, format campur, NULL). Dipakai di [2.4 Data Cleaning](/sql-lanjut-cleaning).
+
+<a :href="withBase('/datasets/data-kotor.csv')" download>Unduh data-kotor.csv</a> (20 baris: id, tanggal, produk, jumlah, harga)
+
+## Studi Kasus Real (Bab 3)
+
+- **Kasus: Omzet Turun** — dipakai di [3.1](/studi-kasus-1-omzet): <a :href="withBase('/datasets/kasus-omzet.csv')" download>kasus-omzet.csv</a> (30 baris)
+- **Kasus: Turnover Karyawan** — dipakai di [3.2](/studi-kasus-2-turnover): <a :href="withBase('/datasets/kasus-hr.csv')" download>kasus-hr.csv</a> (18 baris)
+- **Kasus: Menu Paling Cuan** — dipakai di [3.3](/studi-kasus-3-margin): <a :href="withBase('/datasets/kasus-margin.csv')" download>kasus-margin.csv</a> (24 baris)
+- **Kasus: Kurir Telat** — dipakai di [3.4](/studi-kasus-4-kurir): <a :href="withBase('/datasets/kasus-logistik.csv')" download>kasus-logistik.csv</a> (24 baris)
+
 ::: tip Data mentah jangan diubah
 Kalau mau otak-atik, duplikat dulu file-nya atau kerjakan di salinan terpisah. Kebiasaan ini menyelamatkanmu dari banyak masalah di dunia kerja.
 :::

@@ -134,4 +134,4 @@ Selanjutnya di buku ini: Python buat analisis yang tidak muat di SQL.
 
 ---
 
-**Selanjutnya:** [Bab 2: Python](/bab-2-python)
+**Selanjutnya:** [2.1 CASE: Logika Kondisional di Query](/sql-lanjut-case)

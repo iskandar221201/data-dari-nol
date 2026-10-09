@@ -8,7 +8,7 @@ const nav = [
     items: [
       { text: 'Bab 0: Persiapan', link: '/bab-0-persiapan' },
       {
-        text: 'Bab 1: SQL',
+        text: 'Bab 1: SQL Dasar',
         link: '/sql-select',
         items: [
           { text: '1.1 SELECT: Membaca Data', link: '/sql-select' },
@@ -19,14 +19,34 @@ const nav = [
           { text: '1.6 JOIN: Menggabungkan Tabel', link: '/sql-join' },
           { text: '1.7 Subquery dan CTE', link: '/sql-subquery' },
           { text: '1.8 Window Function', link: '/sql-window' },
-          { text: '1.9 Studi Kasus', link: '/sql-studi-kasus' },
+          { text: '1.9 Studi Kasus: Toko Online', link: '/sql-studi-kasus' },
         ],
       },
-      { text: 'Bab 2: Python', link: '/bab-2-python' },
-      { text: 'Bab 3: Statistik', link: '/bab-3-statistik' },
-      { text: 'Bab 4: Visualisasi', link: '/bab-4-visualisasi' },
-      { text: 'Bab 5: Storytelling', link: '/bab-5-storytelling' },
-      { text: 'Bab 6: Portfolio', link: '/bab-6-portfolio' },
+      {
+        text: 'Bab 2: SQL Lanjutan',
+        link: '/sql-lanjut-case',
+        items: [
+          { text: '2.1 CASE: Logika Kondisional', link: '/sql-lanjut-case' },
+          { text: '2.2 UNION: Menggabungkan Hasil', link: '/sql-lanjut-union' },
+          { text: '2.3 Fungsi String dan Tanggal', link: '/sql-lanjut-string' },
+          { text: '2.4 Data Cleaning dengan SQL', link: '/sql-lanjut-cleaning' },
+        ],
+      },
+      {
+        text: 'Bab 3: Studi Kasus Real',
+        link: '/studi-kasus-1-omzet',
+        items: [
+          { text: '3.1 Misteri Omzet yang Turun', link: '/studi-kasus-1-omzet' },
+          { text: '3.2 Kenapa Karyawan Resign', link: '/studi-kasus-2-turnover' },
+          { text: '3.3 Menu Apa yang Paling Cuan', link: '/studi-kasus-3-margin' },
+          { text: '3.4 Kurir Mana yang Paling Sering Telat', link: '/studi-kasus-4-kurir' },
+        ],
+      },
+      { text: 'Bab 4: Python', link: '/bab-4-python' },
+      { text: 'Bab 5: Statistik', link: '/bab-5-statistik' },
+      { text: 'Bab 6: Visualisasi', link: '/bab-6-visualisasi' },
+      { text: 'Bab 7: Storytelling', link: '/bab-7-storytelling' },
+      { text: 'Bab 8: Portfolio', link: '/bab-8-portfolio' },
     ],
   },
   { text: 'SQL Playground', link: '/playground' },
@@ -43,7 +63,7 @@ const sidebar = [
     items: [{ text: 'Bab 0: Persiapan', link: '/bab-0-persiapan' }],
   },
   {
-    text: 'Bab 1: SQL',
+    text: 'Bab 1: SQL Dasar',
     collapsed: false,
     items: [
       { text: '1.1 SELECT: Membaca Data', link: '/sql-select' },
@@ -58,14 +78,34 @@ const sidebar = [
     ],
   },
   {
+    text: 'Bab 2: SQL Lanjutan',
+    collapsed: false,
+    items: [
+      { text: '2.1 CASE: Logika Kondisional', link: '/sql-lanjut-case' },
+      { text: '2.2 UNION: Menggabungkan Hasil', link: '/sql-lanjut-union' },
+      { text: '2.3 Fungsi String dan Tanggal', link: '/sql-lanjut-string' },
+      { text: '2.4 Data Cleaning dengan SQL', link: '/sql-lanjut-cleaning' },
+    ],
+  },
+  {
+    text: 'Bab 3: Studi Kasus Real',
+    collapsed: false,
+    items: [
+      { text: '3.1 Misteri Omzet yang Turun', link: '/studi-kasus-1-omzet' },
+      { text: '3.2 Kenapa Karyawan Resign', link: '/studi-kasus-2-turnover' },
+      { text: '3.3 Menu Apa yang Paling Cuan', link: '/studi-kasus-3-margin' },
+      { text: '3.4 Kurir Mana yang Paling Sering Telat', link: '/studi-kasus-4-kurir' },
+    ],
+  },
+  {
     text: 'Naik Level',
     collapsed: true,
     items: [
-      { text: 'Bab 2: Python', link: '/bab-2-python' },
-      { text: 'Bab 3: Statistik', link: '/bab-3-statistik' },
-      { text: 'Bab 4: Visualisasi', link: '/bab-4-visualisasi' },
-      { text: 'Bab 5: Storytelling', link: '/bab-5-storytelling' },
-      { text: 'Bab 6: Portfolio', link: '/bab-6-portfolio' },
+      { text: 'Bab 4: Python', link: '/bab-4-python' },
+      { text: 'Bab 5: Statistik', link: '/bab-5-statistik' },
+      { text: 'Bab 6: Visualisasi', link: '/bab-6-visualisasi' },
+      { text: 'Bab 7: Storytelling', link: '/bab-7-storytelling' },
+      { text: 'Bab 8: Portfolio', link: '/bab-8-portfolio' },
     ],
   },
   {
@@ -90,11 +130,11 @@ export default defineConfig({
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'Data dari Nol' }],
     ['meta', { property: 'og:title', content: 'Data dari Nol: Kurikulum Analis Data Berbahasa Indonesia' }],
-    ['meta', { property: 'og:description', content: 'Belajar jadi analis data dari nol: SQL, Python, statistik, visualisasi, sampai portfolio. Gratis, tiap bab ada playground SQL interaktif di browser.' }],
+    ['meta', { property: 'og:description', content: 'Belajar jadi analis data dari nol: SQL dasar, SQL lanjutan, studi kasus real, Python, statistik, visualisasi, sampai portfolio. Gratis, tiap halaman ada playground SQL interaktif di browser.' }],
     ['meta', { property: 'og:locale', content: 'id_ID' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:title', content: 'Data dari Nol: Kurikulum Analis Data Berbahasa Indonesia' }],
-    ['meta', { name: 'twitter:description', content: 'Belajar jadi analis data dari nol: SQL, Python, statistik, visualisasi, sampai portfolio. Gratis, tiap bab ada playground SQL interaktif di browser.' }],
+    ['meta', { name: 'twitter:description', content: 'Belajar jadi analis data dari nol: SQL dasar, SQL lanjutan, studi kasus real, Python, statistik, visualisasi, sampai portfolio. Gratis, tiap halaman ada playground SQL interaktif di browser.' }],
   ],
   themeConfig: {
     nav,

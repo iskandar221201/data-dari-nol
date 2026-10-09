@@ -29,10 +29,10 @@ Sebelum bikin dashboard 10 halaman, latih dirimu menjawab pertanyaan dalam satu 
 
 | Perkakas | Dipakai untuk | Bab |
 |---|---|---|
-| SQL | Mengambil dan mengolah data dari database | Bab 1 |
-| Python (pandas) | Data besar dan analisis berulang | Bab 2 |
-| Statistik dasar | Memastikan kesimpulanmu valid | Bab 3 |
-| Visualisasi / dashboard | Menyampaikan temuan | Bab 4 |
+| SQL | Mengambil dan mengolah data dari database | Bab 1-3 |
+| Python (pandas) | Data besar dan analisis berulang | Bab 4 |
+| Statistik dasar | Memastikan kesimpulanmu valid | Bab 5 |
+| Visualisasi / dashboard | Menyampaikan temuan | Bab 6 |
 
 Kamu tidak perlu install apa pun untuk Bab 0 dan Bab 1. SQL-nya bisa dipraktikkan langsung di playground tiap halaman, yang berjalan di browser.
 
