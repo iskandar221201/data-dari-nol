@@ -5,13 +5,12 @@ Kurikulum analis data berbahasa Indonesia, dari nol sampai siap portfolio. Dokum
 ## Isi
 
 - **Bab 0**: Persiapan dan cara berpikir analis
-- **Bab 1**: Spreadsheet (Google Sheets / Excel)
-- **Bab 2**: SQL + playground interaktif di browser
+- **Bab 1**: SQL (9 halaman, tiap halaman ada playground interaktif dengan dataset studi kasusnya sendiri)
+- **Bab 2**: Python untuk analisis (pandas)
 - **Bab 3**: Statistik dasar
 - **Bab 4**: Visualisasi data
-- **Bab 5**: Python untuk analisis (pandas)
-- **Bab 6**: Storytelling dengan data
-- **Bab 7**: Studi kasus dan portfolio
+- **Bab 5**: Storytelling dengan data
+- **Bab 6**: Studi kasus dan portfolio
 
 ## Pengembangan lokal
 

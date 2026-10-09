@@ -10,12 +10,13 @@ import { withBase } from 'vitepress'
 
 ## Cara pakai
 
-1. Tulis query di kolom teks, atau tekan salah satu contoh cepat.
-2. Tekan tombol **Jalankan query** atau `Ctrl`+`Enter`.
-3. Hasilnya muncul sebagai tabel di bawah.
+1. Pilih dataset dari menu dropdown (ada 7: Data Karyawan, Warung Kopi, Katalog Produk, Dapur Bu Tini, Toko Online, Data Sekolah, Tren Penjualan).
+2. Tulis query di kolom teks, atau tekan salah satu contoh cepat.
+3. Tekan tombol **Jalankan query** atau `Ctrl`+`Enter`.
+4. Hasilnya muncul sebagai tabel di bawah.
 
 Kalau query salah, pesan error-nya ditampilkan apa adanya. Itu normal, baca pesannya dan perbaiki.
 
 ## Data yang dipakai
 
-Dua tabel contoh: `karyawan` (8 baris) dan `penjualan` (29 baris, data Warung Kopi Sederhana, 1-10 Januari 2024). Data yang sama juga bisa diunduh sebagai CSV di [Dataset Latihan](/dataset) untuk dipraktikkan di Excel atau Google Sheets.
+Tiap halaman Bab 1 memakai dataset studi kasusnya sendiri, semuanya juga bisa dipilih di playground ini. Daftar lengkap plus unduhan CSV ada di [Dataset Latihan](/dataset).

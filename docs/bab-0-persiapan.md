@@ -29,13 +29,12 @@ Sebelum bikin dashboard 10 halaman, latih dirimu menjawab pertanyaan dalam satu 
 
 | Perkakas | Dipakai untuk | Bab |
 |---|---|---|
-| Spreadsheet (Google Sheets / Excel) | Eksplorasi cepat, data kecil | Bab 1 |
-| SQL | Mengambil dan mengolah data dari database | Bab 2 |
+| SQL | Mengambil dan mengolah data dari database | Bab 1 |
+| Python (pandas) | Data besar dan analisis berulang | Bab 2 |
 | Statistik dasar | Memastikan kesimpulanmu valid | Bab 3 |
 | Visualisasi / dashboard | Menyampaikan temuan | Bab 4 |
-| Python (pandas) | Data besar dan analisis berulang | Bab 5 |
 
-Kamu tidak perlu install apa pun untuk Bab 0 sampai Bab 2. SQL-nya bisa dipraktikkan langsung di [SQL Playground](/playground) yang berjalan di browser.
+Kamu tidak perlu install apa pun untuk Bab 0 dan Bab 1. SQL-nya bisa dipraktikkan langsung di playground tiap halaman, yang berjalan di browser.
 
 ## 4. Latihan Bab 0
 
@@ -47,4 +46,4 @@ Tidak ada jawaban benar atau salah di sini. Tujuannya melatih otot bertanya.
 
 ---
 
-**Selanjutnya:** [Bab 1: Spreadsheet](/bab-1-spreadsheet)
+**Selanjutnya:** [Bab 1: SQL](/sql-select)

@@ -45,7 +45,7 @@
     border-radius: 8px;
     resize: vertical;
   }
-  textarea:focus-visible, button:focus-visible {
+  textarea:focus-visible, button:focus-visible, select:focus-visible {
     outline: 2px solid var(--navy);
     outline-offset: 2px;
   }
@@ -72,6 +72,17 @@
     padding: 0.45rem 0.8rem;
     min-height: 44px;
   }
+  select {
+    font-size: 0.95rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    min-height: 44px;
+    max-width: 100%;
+  }
+  .ds-label { font-weight: 600; color: var(--navy); margin-right: 0.4rem; }
   .status { font-size: 0.9rem; color: var(--text-2); margin-top: 0.6rem; min-height: 1.4em; }
   .status.loading { color: var(--amber); }
   .status.error { color: #b91c1c; }
@@ -104,8 +115,13 @@
 </head>
 <body>
 
-<h1>SQL Playground</h1>
-<p class="sub">Database contoh berjalan sepenuhnya di browser. Tulis query, tekan <kbd>Ctrl</kbd>+<kbd>Enter</kbd> atau tombol Jalankan.</p>
+<h1 id="pg-title">SQL Playground</h1>
+<p class="sub" id="pg-desc">Database contoh berjalan sepenuhnya di browser. Tulis query, tekan <kbd>Ctrl</kbd>+<kbd>Enter</kbd> atau tombol Jalankan.</p>
+
+<div class="panel">
+  <span class="ds-label"><label for="ds">Dataset:</label></span>
+  <select id="ds" aria-label="Pilih dataset"></select>
+</div>
 
 <div class="panel" id="status-panel">
   <div class="status loading" id="status" role="status">Memuat database...</div>
@@ -113,35 +129,16 @@
 
 <div class="panel">
   <h2>Skema data</h2>
-  <div class="schema">
-    <table aria-label="Skema tabel karyawan">
-      <tr><th colspan="2">karyawan</th></tr>
-      <tr><td>id</td><td class="num">INTEGER</td></tr>
-      <tr><td>nama</td><td>TEXT</td></tr>
-      <tr><td>divisi</td><td>TEXT</td></tr>
-      <tr><td>gaji</td><td class="num">INTEGER</td></tr>
-      <tr><td>tgl_masuk</td><td>TEXT</td></tr>
-    </table>
-    <table aria-label="Skema tabel penjualan">
-      <tr><th colspan="2">penjualan</th></tr>
-      <tr><td>id</td><td class="num">INTEGER</td></tr>
-      <tr><td>tgl</td><td>TEXT</td></tr>
-      <tr><td>produk</td><td>TEXT</td></tr>
-      <tr><td>jumlah</td><td class="num">INTEGER</td></tr>
-      <tr><td>harga</td><td class="num">INTEGER</td></tr>
-    </table>
-  </div>
+  <div class="schema" id="schema"></div>
 </div>
 
 <div class="panel">
   <h2>Tulis query</h2>
   <label for="q" class="empty-note">Query SQL (SELECT saja untuk latihan ini)</label>
-  <textarea id="q" spellcheck="false">SELECT * FROM karyawan;</textarea>
+  <textarea id="q" spellcheck="false"></textarea>
   <div class="row">
     <button class="primary" id="run" disabled>Jalankan query</button>
-    <button class="sample" data-q="SELECT * FROM karyawan;">semua karyawan</button>
-    <button class="sample" data-q="SELECT divisi, AVG(gaji) AS rata_gaji FROM karyawan GROUP BY divisi;">rata-rata gaji per divisi</button>
-    <button class="sample" data-q="SELECT produk, SUM(jumlah * harga) AS omzet FROM penjualan GROUP BY produk ORDER BY omzet DESC;">omzet per produk</button>
+    <span class="row" id="samples" style="margin-top:0"></span>
   </div>
 </div>
 
@@ -157,7 +154,15 @@
   var runBtn = document.getElementById('run');
   var qEl = document.getElementById('q');
   var resultEl = document.getElementById('result');
+  var schemaEl = document.getElementById('schema');
+  var samplesEl = document.getElementById('samples');
+  var dsSelect = document.getElementById('ds');
+  var titleEl = document.getElementById('pg-title');
+  var descEl = document.getElementById('pg-desc');
   var db = null;
+
+  var params = new URLSearchParams(location.search);
+  var dsId = params.get('ds') || 'karyawan';
 
   function setStatus(text, cls) {
     statusEl.textContent = text;
@@ -168,24 +173,33 @@
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
+  function fitFrame() {
+    try {
+      if (window.frameElement) {
+        window.frameElement.style.height = Math.max(640, document.body.scrollHeight + 24) + 'px';
+      }
+    } catch (e) { /* abaikan kalau beda origin */ }
+  }
+
   function render(res) {
     if (!res.length || !res[0].values.length) {
       resultEl.innerHTML = '<p class="empty-note">Query berhasil, tapi tidak ada baris yang cocok.</p>';
-      return;
-    }
-    var html = '<table><tr>';
-    res[0].columns.forEach(function (c) { html += '<th>' + esc(c) + '</th>'; });
-    html += '</tr>';
-    res[0].values.forEach(function (row) {
-      html += '<tr>';
-      row.forEach(function (v) {
-        var num = typeof v === 'number' ? ' class="num"' : '';
-        html += '<td' + num + '>' + esc(v === null ? 'NULL' : v) + '</td>';
-      });
+    } else {
+      var html = '<table><tr>';
+      res[0].columns.forEach(function (c) { html += '<th>' + esc(c) + '</th>'; });
       html += '</tr>';
-    });
-    html += '</table><p class="empty-note">' + res[0].values.length + ' baris.</p>';
-    resultEl.innerHTML = html;
+      res[0].values.forEach(function (row) {
+        html += '<tr>';
+        row.forEach(function (v) {
+          var num = typeof v === 'number' ? ' class="num"' : '';
+          html += '<td' + num + '>' + esc(v === null ? 'NULL' : v) + '</td>';
+        });
+        html += '</tr>';
+      });
+      html += '</table><p class="empty-note">' + res[0].values.length + ' baris.</p>';
+      resultEl.innerHTML = html;
+    }
+    fitFrame();
   }
 
   function jalankan() {
@@ -202,71 +216,98 @@
     } catch (e) {
       resultEl.innerHTML = '<p class="empty-note">Tidak ada hasil karena query gagal.</p>';
       setStatus('Error: ' + e.message, 'error');
+      fitFrame();
     }
+  }
+
+  function sqlVal(v, type) {
+    if (v === null || v === undefined) return 'NULL';
+    if (type === 'TEXT') return "'" + String(v).replace(/'/g, "''") + "'";
+    return v;
+  }
+
+  function muatDataset(SQL, data) {
+    if (db) db.close();
+    db = new SQL.Database();
+    data.tables.forEach(function (t) {
+      var cols = t.columns.map(function (c) { return '"' + c.name + '" ' + c.type; }).join(', ');
+      db.run('CREATE TABLE "' + t.name + '" (' + cols + ');');
+      t.rows.forEach(function (r) {
+        var vals = r.map(function (v, i) { return sqlVal(v, t.columns[i].type); }).join(', ');
+        db.run('INSERT INTO "' + t.name + '" VALUES (' + vals + ');');
+      });
+    });
+
+    titleEl.textContent = 'SQL Playground: ' + data.title;
+    descEl.textContent = data.description + ' Tulis query, tekan Ctrl+Enter atau tombol Jalankan.';
+
+    var sh = '';
+    data.tables.forEach(function (t) {
+      sh += '<table aria-label="Skema tabel ' + esc(t.name) + '"><tr><th colspan="2">' + esc(t.name) + '</th></tr>';
+      t.columns.forEach(function (c) {
+        sh += '<tr><td>' + esc(c.name) + '</td><td class="num">' + esc(c.type) + '</td></tr>';
+      });
+      sh += '</table>';
+    });
+    schemaEl.innerHTML = sh;
+
+    samplesEl.innerHTML = '';
+    (data.samples || []).forEach(function (s) {
+      var b = document.createElement('button');
+      b.className = 'sample';
+      b.textContent = s.label;
+      b.setAttribute('data-q', s.sql);
+      b.addEventListener('click', function () {
+        qEl.value = s.sql;
+        qEl.focus();
+      });
+      samplesEl.appendChild(b);
+    });
+
+    qEl.value = data.defaultQuery || ('SELECT * FROM "' + data.tables[0].name + '" LIMIT 10;');
+    setStatus('Database siap (' + data.subtitle + '). Silakan tulis query.', 'ok');
+    runBtn.disabled = false;
+    fitFrame();
   }
 
   runBtn.addEventListener('click', jalankan);
   qEl.addEventListener('keydown', function (e) {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') jalankan();
   });
-  document.querySelectorAll('button.sample').forEach(function (b) {
-    b.addEventListener('click', function () {
-      qEl.value = b.getAttribute('data-q');
-      qEl.focus();
-    });
+  dsSelect.addEventListener('change', function () {
+    var u = new URL(location.href);
+    u.searchParams.set('ds', dsSelect.value);
+    location.href = u.toString();
   });
 
-  initSqlJs({ locateFile: function (f) {
-    return 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/' + f;
-  }}).then(function (SQL) {
-    db = new SQL.Database();
-    db.run("CREATE TABLE karyawan (id INTEGER, nama TEXT, divisi TEXT, gaji INTEGER, tgl_masuk TEXT);");
-    db.run("INSERT INTO karyawan VALUES \
-      (1, 'Budi Santoso', 'Marketing', 6500000, '2022-03-15'), \
-      (2, 'Siti Rahayu', 'Marketing', 7000000, '2021-07-01'), \
-      (3, 'Andi Wijaya', 'IT', 9000000, '2020-01-10'), \
-      (4, 'Dewi Lestari', 'IT', 9500000, '2019-11-20'), \
-      (5, 'Rina Marlina', 'Finance', 8000000, '2021-05-05'), \
-      (6, 'Joko Prasetyo', 'Finance', 7800000, '2022-08-12'), \
-      (7, 'Maya Putri', 'HR', 6000000, '2023-02-01'), \
-      (8, 'Fajar Nugroho', 'IT', 8800000, '2021-09-30');");
-    db.run("CREATE TABLE penjualan (id INTEGER, tgl TEXT, produk TEXT, jumlah INTEGER, harga INTEGER);");
-        db.run("INSERT INTO penjualan VALUES \
-      (1, '2024-01-01', 'Kopi Susu', 43, 18000), \
-      (2, '2024-01-01', 'Roti Bakar', 71, 12000), \
-      (3, '2024-01-01', 'Teh Manis', 134, 8000), \
-      (4, '2024-01-02', 'Kopi Susu', 134, 18000), \
-      (5, '2024-01-02', 'Teh Manis', 94, 8000), \
-      (6, '2024-01-03', 'Kopi Susu', 51, 18000), \
-      (7, '2024-01-03', 'Roti Bakar', 104, 12000), \
-      (8, '2024-01-03', 'Teh Manis', 111, 8000), \
-      (9, '2024-01-04', 'Kopi Susu', 123, 18000), \
-      (10, '2024-01-04', 'Roti Bakar', 93, 12000), \
-      (11, '2024-01-04', 'Teh Manis', 115, 8000), \
-      (12, '2024-01-05', 'Kopi Susu', 151, 18000), \
-      (13, '2024-01-05', 'Roti Bakar', 143, 12000), \
-      (14, '2024-01-05', 'Teh Manis', 94, 8000), \
-      (15, '2024-01-06', 'Kopi Susu', 59, 18000), \
-      (16, '2024-01-06', 'Roti Bakar', 137, 12000), \
-      (17, '2024-01-06', 'Teh Manis', 51, 8000), \
-      (18, '2024-01-07', 'Kopi Susu', 85, 18000), \
-      (19, '2024-01-07', 'Roti Bakar', 117, 12000), \
-      (20, '2024-01-07', 'Teh Manis', 45, 8000), \
-      (21, '2024-01-08', 'Kopi Susu', 108, 18000), \
-      (22, '2024-01-08', 'Roti Bakar', 158, 12000), \
-      (23, '2024-01-08', 'Teh Manis', 110, 8000), \
-      (24, '2024-01-09', 'Kopi Susu', 120, 18000), \
-      (25, '2024-01-09', 'Roti Bakar', 150, 12000), \
-      (26, '2024-01-09', 'Teh Manis', 64, 8000), \
-      (27, '2024-01-10', 'Kopi Susu', 45, 18000), \
-      (28, '2024-01-10', 'Roti Bakar', 138, 12000), \
-      (29, '2024-01-10', 'Teh Manis', 50, 8000) \
-      ");
-    setStatus('Database siap. Silakan tulis query.', 'ok');
-    runBtn.disabled = false;
-  }).catch(function () {
-    setStatus('Gagal memuat database. Periksa koneksi internet lalu muat ulang halaman.', 'error');
-  });
+  setStatus('Memuat daftar dataset...', 'loading');
+  fetch('datasets/index.json')
+    .then(function (r) { if (!r.ok) throw new Error('index'); return r.json(); })
+    .then(function (list) {
+      var ok = false;
+      list.forEach(function (d) {
+        var o = document.createElement('option');
+        o.value = d.id;
+        o.textContent = d.title + ' — ' + d.blurb;
+        if (d.id === dsId) { o.selected = true; ok = true; }
+        dsSelect.appendChild(o);
+      });
+      if (!ok && list.length) dsId = list[0].id;
+      setStatus('Memuat database...', 'loading');
+      return initSqlJs({ locateFile: function (f) {
+        return 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/' + f;
+      }});
+    })
+    .then(function (SQL) {
+      return fetch('datasets/' + encodeURIComponent(dsId) + '.json')
+        .then(function (r) { if (!r.ok) throw new Error('dataset'); return r.json(); })
+        .then(function (data) { muatDataset(SQL, data); });
+    })
+    .catch(function () {
+      setStatus('Gagal memuat database. Periksa koneksi internet lalu muat ulang halaman.', 'error');
+    });
+
+  window.addEventListener('load', fitFrame);
 })();
 </script>
 </body>

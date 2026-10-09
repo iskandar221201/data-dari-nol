@@ -5,19 +5,18 @@ Rencana pengembangan buku ini. Daftar ini diperbarui seiring progres penulisan.
 ## Sudah bisa dibaca
 
 - [x] Bab 0: Persiapan dan cara berpikir analis
-- [x] Bab 1: Spreadsheet
-- [x] Bab 2: SQL + playground interaktif
+- [x] Bab 1: SQL (9 halaman, tiap halaman ada playground interaktif dengan dataset studi kasus sendiri)
 
 ## Dalam penulisan
 
+- [ ] Bab 2: Python untuk analisis
 - [ ] Bab 3: Statistik dasar
 - [ ] Bab 4: Visualisasi data
-- [ ] Bab 5: Python untuk analisis
 
 ## Rencana berikutnya
 
-- [ ] Bab 6: Storytelling dengan data
-- [ ] Bab 7: Studi kasus dan portfolio
+- [ ] Bab 5: Storytelling dengan data
+- [ ] Bab 6: Studi kasus dan portfolio
 - [ ] Bank latihan tiap bab dengan kunci jawaban
 - [ ] Kumpulan dataset latihan berbahasa Indonesia
 

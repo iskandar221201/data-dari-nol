@@ -1,0 +1,31 @@
+id,id_siswa,mapel,nilai
+1,1,Matematika,85
+2,2,Matematika,72
+3,3,Matematika,90
+4,4,Matematika,65
+5,5,Matematika,78
+6,6,Matematika,88
+7,7,Matematika,92
+8,8,Matematika,70
+9,9,Matematika,81
+10,10,Matematika,60
+11,1,B. Indonesia,78
+12,2,B. Indonesia,85
+13,3,B. Indonesia,82
+14,4,B. Indonesia,75
+15,5,B. Indonesia,88
+16,6,B. Indonesia,70
+17,7,B. Indonesia,85
+18,8,B. Indonesia,90
+19,9,B. Indonesia,76
+20,10,B. Indonesia,68
+21,1,IPA,90
+22,2,IPA,68
+23,3,IPA,85
+24,4,IPA,72
+25,5,IPA,80
+26,6,IPA,95
+27,7,IPA,88
+28,8,IPA,74
+29,9,IPA,83
+30,10,IPA,62
