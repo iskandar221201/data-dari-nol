@@ -141,3 +141,5 @@ export default defineConfig({
     },
   },
 })
+
+// trigger rebuild: 2026-10-09
