@@ -34,6 +34,25 @@ const bab3 = [
   { text: '3.4 Kurir Mana yang Paling Sering Telat', link: '/studi-kasus-4-kurir' },
 ]
 
+const pustaka = [
+  { text: 'Daftar Isi Pustaka', link: '/thinkstats-index' },
+  { text: 'Kata Pengantar', link: '/thinkstats-pengantar' },
+  { text: 'Bab 1: Analisis Data Eksploratif', link: '/thinkstats-bab-01' },
+  { text: 'Bab 2: Distribusi', link: '/thinkstats-bab-02' },
+  { text: 'Bab 3: Fungsi Massa Probabilitas', link: '/thinkstats-bab-03' },
+  { text: 'Bab 4: Fungsi Distribusi Kumulatif', link: '/thinkstats-bab-04' },
+  { text: 'Bab 5: Memodelkan Distribusi', link: '/thinkstats-bab-05' },
+  { text: 'Bab 6: Fungsi Kepadatan Probabilitas', link: '/thinkstats-bab-06' },
+  { text: 'Bab 7: Hubungan Antar Variabel', link: '/thinkstats-bab-07' },
+  { text: 'Bab 8: Estimasi', link: '/thinkstats-bab-08' },
+  { text: 'Bab 9: Uji Hipotesis', link: '/thinkstats-bab-09' },
+  { text: 'Bab 10: Kuadrat Terkecil Linear', link: '/thinkstats-bab-10' },
+  { text: 'Bab 11: Regresi', link: '/thinkstats-bab-11' },
+  { text: 'Bab 12: Analisis Deret Waktu', link: '/thinkstats-bab-12' },
+  { text: 'Bab 13: Analisis Survival', link: '/thinkstats-bab-13' },
+  { text: 'Bab 14: Metode Analitik', link: '/thinkstats-bab-14' },
+]
+
 const nav = [
   { text: 'Beranda', link: '/' },
   { text: 'Mulai Belajar', link: '/bab-0-persiapan' },
@@ -55,6 +74,7 @@ const nav = [
   { text: 'Dataset', link: '/dataset' },
   { text: 'Latihan', link: '/latihan' },
   { text: 'Roadmap', link: '/roadmap' },
+  { text: 'Pustaka', link: '/thinkstats-index' },
 ]
 
 const sidebar = [
@@ -67,6 +87,11 @@ const sidebar = [
   { text: 'Bab 1: SQL Dasar', collapsed: false, items: bab1 },
   { text: 'Bab 2: SQL Lanjutan', collapsed: false, items: bab2 },
   { text: 'Bab 3: Studi Kasus Real', collapsed: false, items: bab3 },
+  {
+    text: '📚 Pustaka: Think Stats',
+    collapsed: true,
+    items: pustaka,
+  },
   {
     text: 'Naik Level',
     collapsed: true,
@@ -141,5 +166,3 @@ export default defineConfig({
     },
   },
 })
-
-// trigger rebuild: 2026-10-09
